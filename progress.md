@@ -14,6 +14,6 @@
 - Read through and experimented with ideas from chapters 4 through 8
 
 ## Fri, 27 Dec
-- Recreating a basic 12 bar blues shuffle (look in resources for code progress)
+- Recreating a basic 12 bar blues shuffle (look in code folder for code progress)
 - Read through the remaining tutorial
 
