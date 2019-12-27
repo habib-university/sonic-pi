@@ -1,0 +1,29 @@
+#thursday 27th's work
+
+use_synth :pluck
+
+define :shuffle_play do |root, repeats|
+  repeats.times do
+    4.times do
+      play chord(root, :minor7), release: 0.5
+      sleep 0.6
+      play chord(root, :minor7), release: 0.5
+      sleep 0.4
+    end
+  end
+end
+
+define :twelve_bar_blues do |root,time|
+  time.times do
+    shuffle_play root,1
+    shuffle_play root+5,1
+    shuffle_play root,2
+    shuffle_play root+5,2
+    shuffle_play root,2
+    shuffle_play root+7,2
+    shuffle_play root+5,1
+    shuffle_play root,1
+  end
+end
+
+twelve_bar_blues :e3,4
