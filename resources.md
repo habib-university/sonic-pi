@@ -9,3 +9,6 @@ Tracks that seem to be somewhat algorithmic:
 - Wintergatan - Marble Machine : https://www.youtube.com/watch?v=IvUU8joBb1Q
 - Nigel Stanford - Automatica : https://www.youtube.com/watch?v=bAdqazixuRY
 - Daft Punk - Derezzed : https://www.youtube.com/watch?v=F4eccPBFEjE
+
+## Jazz Reharmonization
+- The 7 Levels of Jazz Harmony: https://www.youtube.com/watch?v=lz3WR-F_pnM
