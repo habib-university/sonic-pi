@@ -34,5 +34,9 @@
 - Managed to make a drum and bass loop
 
 ## Fri, 3 Dec
-- Added melody and chords onto easy track
+- Added melody, whitenoise and chords onto easy track
+- Noted that problem with easy track is that it is 
+-- random
+-- threading issue persists 
+
 
