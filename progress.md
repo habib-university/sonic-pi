@@ -36,7 +36,7 @@
 ## Fri, 3 Dec
 - Added melody, whitenoise and chords onto easy track
 - Noted that problem with easy track is that it is 
--- random
--- threading issue persists 
+* random
+*  threading issue persists 
 
 
