@@ -32,16 +32,17 @@ end
 
 live_loop :chords do
   use_synth :piano
-  play chord(:c2, :minor7),attack:0, release:2
+  play chord(:c2, :minor7),attack:0, release:2,amp:5
   sleep 2.25
-  play chord(:e2,:minor7),attack:0
+  play chord(:e2,:minor7),attack:0,amp:5
   sleep 0.75
-  play chord(:f2,:minor7),attack:0
+  play chord(:f2,:minor7),attack:0,amp:5
   sleep 1
 end
 
 
 live_loop :melody do
+  use_synth :dark_ambience
   18.times do
     play choose(chord(:c3, :minor, num_octaves: 2)), release: 0.1,amp:10
     sleep 0.125
@@ -54,4 +55,10 @@ live_loop :melody do
     play choose(chord(:f2, :minor, num_octaves: 2)), release: 0.1,amp:10
     sleep 0.125
   end
+end
+
+live_loop :whitenoise do
+  use_synth :pnoise
+  play :c1,sustain:0.25,amp:0.1
+  sleep 0.25
 end
