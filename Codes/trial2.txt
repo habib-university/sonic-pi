@@ -29,7 +29,7 @@ end
 live_loop :bass do
   use_bpm get(:bpm)
   use_octave get(:octave)
-  with_fx :eq,amp:2 do
+  with_fx :pan, pan:0.5,amp:1 do
     use_synth :fm
     play :c2, attack: 0, release: 0.5,amp:20
     sleep 0.75
@@ -70,18 +70,20 @@ live_loop :melody1 do
   use_bpm get(:bpm)
   use_octave get(:octave)
   use_synth :fm
-  with_fx :reverb, room:1,mix:0.6 do
-    18.times do
-      play choose(chord(:c3, :major7, num_octaves: 2)), release: 0.1,amp:5
-      sleep 0.125
-    end
-    6.times do
-      play choose(chord(:f2,:major7, num_octaves: 2)), release: 0.1,amp:5
-      sleep 0.125
-    end
-    8.times do
-      play choose(chord(:g2, :major7, num_octaves: 2)), release: 0.1,amp:5
-      sleep 0.125
+  with_fx :pan, pan:-0.5 do
+    with_fx :reverb, room:1,mix:0.6 do
+      18.times do
+        play choose(chord(:c3, :major7, num_octaves: 2)), release: 0.1,amp:5
+        sleep 0.125
+      end
+      6.times do
+        play choose(chord(:f2,:major7, num_octaves: 2)), release: 0.1,amp:5
+        sleep 0.125
+      end
+      8.times do
+        play choose(chord(:g2, :major7, num_octaves: 2)), release: 0.1,amp:5
+        sleep 0.125
+      end
     end
   end
 end
