@@ -1,0 +1,95 @@
+set :bpm ,50
+set :octave,1
+
+
+live_loop :drums do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  with_fx :reverb,room:1,mix:0.3 do
+    sample :drum_heavy_kick,amp:5
+    sleep 0.5
+    sample :drum_snare_hard,amp:2
+    sleep 0.5
+    sample :drum_heavy_kick,amp:2
+    sleep 0.5
+    sample :drum_snare_hard,amp:5
+    sleep 0.5
+  end
+end
+
+live_loop :hihat do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  sample :drum_cymbal_closed,amp:3
+  sleep 0.25
+  sample :drum_cymbal_pedal,amp:2
+  sleep 1
+end
+
+live_loop :bass do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  with_fx :eq,amp:2 do
+    use_synth :fm
+    play :c2, attack: 0, release: 0.5,amp:20
+    sleep 0.75
+    play :c2, attack: 0, release: 0.3,amp:10
+    sleep 1
+    play :f2,release:0.3,amp:20
+    sleep 0.25
+    play :d2,release:0.3,amp:20
+    sleep 0.75
+    play :a2,release:0.3,amp:20
+    sleep 0.25
+    play :g2,amp:20
+    sleep 1
+  end
+end
+
+live_loop :chords do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  with_fx :reverb, room:1,mix:0.7 do
+    with_fx :panslicer,phase:0.125 do
+      use_synth :piano
+      play chord(:c2, :major7),attack:0, release:1,amp:20
+      sleep 1.75
+      play chord(:f2,:major7),attack:0,amp:20,release:0.2
+      sleep 0.25
+      play chord(:d2,:minor7),attack:0,amp:20,release:0.7
+      sleep 0.75
+      play chord(:a2,:minor),attack:0,amp:20,release:0.2
+      sleep 0.25
+      play chord(:g2,:major7),attack:0,amp:20
+      sleep 1
+    end
+  end
+end
+
+live_loop :melody1 do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  use_synth :fm
+  with_fx :reverb, room:1,mix:0.6 do
+    18.times do
+      play choose(chord(:c3, :major7, num_octaves: 2)), release: 0.1,amp:5
+      sleep 0.125
+    end
+    6.times do
+      play choose(chord(:f2,:major7, num_octaves: 2)), release: 0.1,amp:5
+      sleep 0.125
+    end
+    8.times do
+      play choose(chord(:g2, :major7, num_octaves: 2)), release: 0.1,amp:5
+      sleep 0.125
+    end
+  end
+end
+
+live_loop :whitenoise do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  use_synth :pnoise
+  play :c1,sustain:0.25,amp:0.1
+  sleep 0.25
+end
