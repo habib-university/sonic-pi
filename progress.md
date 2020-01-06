@@ -39,4 +39,7 @@
   - Random
   - Threading issue persists 
 
-
+## Mon, 6 Dec
+- created new file called trial2 (upgraded version of trail1)
+- uses getters and setters
+- more fluidity, easy to change bpm and octaves directly, added more fx
