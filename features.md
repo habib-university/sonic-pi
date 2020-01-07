@@ -38,6 +38,9 @@
 # Randomization
 - choose(chord(:c3, :major7, num_octaves: 2))
 
+--------
+
+# Features in Tracks
 
 |                    | Ditty              | Easy | Medium | Hard |
 | ---                | -----              | ---- | ------ | ---- |
