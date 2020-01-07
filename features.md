@@ -40,6 +40,7 @@
 
 
 |                    | Ditty              | Easy | Medium | Hard |
+| ---                | -----              | ---- | ------ | ---- |
 | Built-in Functions | 1                  | 1    | 1      | 1    |
 | Chords             |                    |      | 1      | 1    |
 | Effect Options     |                    | 1    | 1      | 1    |
