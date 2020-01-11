@@ -42,22 +42,24 @@
 
 # Features in Tracks
 
-|                    | Ditty              | Easy | Medium | Hard |
-| ---                | -----              | ---- | ------ | ---- |
-| Built-in Functions | 1                  | 1    | 1      | 1    |
-| Chords             |                    |      | 1      | 1    |
-| Effect Options     |                    | 1    | 1      | 1    |
-| Effects            |                    | 1    | 1      | 1    |
-| Getter/setter      |                    |      | 1      | 1    |
-| Iteration          | .times             | 1    | 1      | 1    |
-| Playback           | 1                  | 1    | 1      | 1    |
-| Playback Options   | 1                  | 1    | 1      | 1    |
-| Randomization      |                    |      | 1      | 1    |
-| Rings              |                    |      |        | 1    |
-| Sample Options     |                    | 1    | 1      | 1    |
-| Samples            |                    | 1    | 1      | 1    |
-| Scope              | 1                  | 1    | 1      | 1    |
-| Syntax             | 1                  | 1    | 1      | 1    |
-| Synth              | 1                  | 1    | 1      | 1    |
-|                    | (tutorial example) |      |        |      |
-|                    | (common melody)    |      |        |      |
+|                                            | Ditty                               | Easy                                   | Medium        | Hard |
+| ---                                        | -----                               | ----                                   | ------        | ---- |
+| Built-in Functions                         | sleep                               | "use\_bpm, live\_loop,                 |               |      |
+| with\_fx, use\_synth"                      | "chords, sync, cue,                 |                                        |               |      |
+| use\_octave, define"                       | range, ring (step, inclusive, tick) |                                        |               |      |
+| Effect Options                             |                                     | room, mix, amp, pan                    |               |      |
+| Effects                                    |                                     | reverb, pan                            |               |      |
+| Getter/setter                              |                                     |                                        | get, set      |      |
+| Iteration                                  |                                     | .times                                 | live\_loop    |      |
+| Playback                                   | play                                |                                        |               |      |
+| Playback Options                           |                                     | "attack, release, sustain, amp,        |               |      |
+| cutoff"                                    |                                     |                                        |               |      |
+| Randomization                              |                                     |                                        | .choose, rand |      |
+| Rings                                      |                                     |                                        |               | ring |
+| Sample Options                             |                                     | amp                                    |               |      |
+| Samples                                    |                                     | "drum\_heavy\_kick, drum\_snare\_hard, |               |      |
+| drum\_cymbal\_closed, drum\_cymbal\_pedal" |                                     | bass\_drop\_c                          |               |      |
+| Scope                                      |                                     | do, end                                |               |      |
+| Synth                                      |                                     | fm, blade, pnoise                      |               |      |
+|                                            | (tutorial example)                  |                                        |               |      |
+|                                            | (common melody)                     |                                        |               |      |
