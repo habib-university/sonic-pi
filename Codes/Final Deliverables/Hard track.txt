@@ -1,0 +1,170 @@
+#hard track
+set :bpm ,50
+set :octave,1
+
+fade_ring=ring 0,1,1,1,0.5,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1
+fade=0
+
+fade_ring2=range 1,0, step:1,inclusive:true
+fade2=1
+
+hihat_ring=ring 1,0,0,1,1,0,1,0
+hihatt=0
+
+chord_ring= ring 1,1,0
+chord_r=1
+
+melody_ring=ring 1,1,0
+melody_r=1
+
+bass_ring=ring 1,1,0
+bass_r=1
+off=0
+
+
+
+define :melody do |chord,time|
+  if melody_r!=0
+    melody_r=melody_ring.tick(:melody)
+  end
+  use_synth :fm
+  time.times do
+    with_fx :pan, pan:-0.5 do
+      with_fx :reverb, room:1,mix:0.6,amp:1*melody_r do
+        32.times do
+          play chord.choose, release: rand(0.09..0.12),amp: rand(2..4)
+          sleep 0.125
+        end
+      end
+    end
+  end
+end
+
+define :bass do |chord|
+  if bass_r!=0
+    bass_r=bass_ring.tick(:bass)
+  end
+  with_fx :pan, pan:0,amp:1*bass_r do
+    
+    use_synth :fm
+    play chord[1], attack: 0, release: 0.25,amp:15#,cutoff:rand(50..85)
+    sleep 0.25
+    play chord[1], attack: 0, release: 1,amp:15#,cutoff:rand(50..85)
+    play chord[5], attack: rand(0.5..1.5), release: 1,amp:15#,cutoff:rand(50..85)
+    sleep 2
+    play chord.drop_last(4).choose,amp:15,release:0.1#,cutoff:rand(50..85)
+    sleep 0.5
+    play chord.drop_last(4).choose,amp:15,release:rand(0.1..0.5)#,cutoff:rand(50..85)
+    sleep 0.5
+    play chord.drop_last(4).choose,amp:15#,cutoff: rand(50..85)
+    sleep 0.75
+  end
+end
+
+define :chord_play do |chord,time|
+  if chord_r!=0
+    chord_r=chord_ring.tick(:chord)
+  end
+  with_fx :reverb, room:1,mix:0.7,amp:1*chord_r do
+    use_synth :blade
+    time.times do
+      play chord,attack: rand(4), release: rand(2..4), cutoff: rand(50..85), amp: 20
+      sleep 4
+    end
+  end
+end
+
+live_loop :scratch do
+  if fade2!=0
+    fade2=fade_ring2.tick(:scratch)
+  end
+  with_fx :reverb,amp:1*fade2,mix:0.3,room:1 do
+    sleep 0.5
+    sample :bass_drop_c
+    sleep 1.5
+  end
+end
+
+live_loop :drums do
+  cue (:tick)
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  
+  
+  fade=fade_ring.tick(:drums)
+  with_fx :reverb,room:1,mix:0.3,amp: 1*fade do
+    1.times do
+      sample :drum_heavy_kick,amp:10
+      sleep 0.5
+      sample :drum_snare_hard,amp:5
+      sleep 0.5
+      sample :drum_heavy_kick,amp:5
+      sleep 0.5
+      sample :drum_snare_hard,amp:10
+      sleep 0.5
+    end
+  end
+end
+
+live_loop :hihat,sync: :drums do
+  
+  hihatt=hihat_ring.tick(:hihattt)
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  with_fx :reverb, amp:1*hihatt, mix:0.3, room:0.8 do
+    sample :drum_cymbal_closed,amp:3
+    sleep 0.25
+    sample :drum_cymbal_pedal,amp:2
+    sleep 1
+  end
+end
+
+live_loop :bass,sync: :drums do
+  
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  bass chord(:e2, :minor7,num_octaves:2)
+  bass chord(:d2,:dom7,num_octaves:2)
+  bass chord(:g2,:major7,num_octaves:2)
+  bass chord(:c2,:major7,num_octaves:2)
+  bass chord(:fs2,:dim7,num_octaves:2)
+  bass chord(:b2,:dom7,num_octaves:2)
+end
+
+
+
+live_loop :chords,sync: :drums do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  
+  chord_play chord(:e2, :minor7,num_octaves:2),1
+  chord_play chord(:d2,:dom7,num_octaves:2),1
+  chord_play chord(:g2,:major7,num_octaves:2),1
+  chord_play chord(:c2,:major7,num_octaves:2),1
+  chord_play chord(:fs2,:dim7,num_octaves:2),1
+  chord_play chord(:b2,:dom7,num_octaves:2),1
+end
+
+
+
+live_loop :melody1,sync: :drums do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  melody chord(:e2, :minor7,num_octaves:2),1
+  melody chord(:d2,:dom7,num_octaves:2),1
+  melody chord(:g2,:major7,num_octaves:2),1
+  melody chord(:c2,:major7,num_octaves:2),1
+  melody chord(:fs2,:dim7,num_octaves:2),1
+  melody chord(:b2,:dom7,num_octaves:2),1
+end
+
+
+live_loop :whitenoise do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  use_synth :pnoise
+  yes=chord_ring.look(:chord)
+  play :e1,sustain:0.25,amp:0.1*yes
+  sleep 0.25
+end
+
