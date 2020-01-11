@@ -1,0 +1,117 @@
+#medium track
+set :bpm ,50
+set :octave,1
+
+
+live_loop :drums do
+  cue :tick
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  
+  with_fx :reverb,room:1,mix:0.3,amp: 1 do
+    sample :drum_heavy_kick,amp:10
+    sleep 0.5
+    sample :drum_snare_hard,amp:5
+    sleep 0.5
+    sample :drum_heavy_kick,amp:5
+    sleep 0.5
+    sample :drum_snare_hard,amp:10
+    sleep 0.5
+  end
+end
+
+live_loop :hihat do
+  sync :tick
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  sample :drum_cymbal_closed,amp:3
+  sleep 0.25
+  sample :drum_cymbal_pedal,amp:2
+  sleep 1
+end
+
+define :bass do |chord|
+  with_fx :pan, pan:0.5,amp:1 do
+    
+    use_synth :fm
+    play chord[1], attack: 0, release: 0.25,amp:5,cutoff:rand(50..85)
+    sleep 0.25
+    play chord[1], attack: 0, release: 1,amp:5,cutoff:rand(50..85)
+    play chord[5], attack: rand(0.5..1.5), release: 1,amp:5,cutoff:rand(50..85)
+    sleep 2
+    play chord.drop_last(4).choose,amp:5,release:0.1,cutoff:rand(50..85)
+    sleep 0.5
+    play chord.drop_last(4).choose,amp:5,release:rand(0.1..0.5),cutoff:rand(50..85)
+    sleep 0.5
+    play chord.drop_last(4).choose,amp:5,cutoff: rand(50..85)
+    sleep 0.75
+  end
+end
+
+live_loop :bass do
+  sync :tick
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  bass chord(:e2, :minor7,num_octaves:2)
+  bass chord(:d2,:dom7,num_octaves:2)
+  bass chord(:g2,:major7,num_octaves:2)
+  bass chord(:c2,:major7,num_octaves:2)
+  bass chord(:fs2,:dim7,num_octaves:2)
+  bass chord(:b2,:dom7,num_octaves:2)
+end
+
+define :chord_play do |chord,time|
+  with_fx :reverb, room:1,mix:0.7 do
+    use_synth :blade
+    time.times do
+      play chord,attack: rand(4), release: rand(2..4), cutoff: rand(50..85), amp: 20
+      sleep 4
+    end
+  end
+end
+
+live_loop :chords do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  
+  chord_play chord(:e2, :minor7,num_octaves:2),1
+  chord_play chord(:d2,:dom7,num_octaves:2),1
+  chord_play chord(:g2,:major7,num_octaves:2),1
+  chord_play chord(:c2,:major7,num_octaves:2),1
+  chord_play chord(:fs2,:dim7,num_octaves:2),1
+  chord_play chord(:b2,:dom7,num_octaves:2),1
+end
+
+define :melody do |chord,time|
+  use_synth :fm
+  time.times do
+    with_fx :pan, pan:-0.5 do
+      with_fx :reverb, room:1,mix:0.6 do
+        32.times do
+          play chord.choose, release: rand(0.09..0.12),amp: rand(2..4)
+          sleep 0.125
+        end
+      end
+    end
+  end
+end
+
+live_loop :melody1 do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  melody chord(:e2, :minor7,num_octaves:2),1
+  melody chord(:d2,:dom7,num_octaves:2),1
+  melody chord(:g2,:major7,num_octaves:2),1
+  melody chord(:c2,:major7,num_octaves:2),1
+  melody chord(:fs2,:dim7,num_octaves:2),1
+  melody chord(:b2,:dom7,num_octaves:2),1
+end
+
+
+live_loop :whitenoise do
+  use_bpm get(:bpm)
+  use_octave get(:octave)
+  use_synth :pnoise
+  play :e1,sustain:0.25,amp:0.1
+  sleep 0.25
+end
