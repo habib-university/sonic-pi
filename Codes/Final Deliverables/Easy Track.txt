@@ -1,0 +1,81 @@
+#easy track
+
+use_bpm 50
+
+live_loop :drums do
+  with_fx :reverb,room:1,mix:0.3,amp: 1 do
+    sample :drum_heavy_kick,amp:10
+    sleep 0.5
+    sample :drum_snare_hard,amp:5
+    sleep 0.5
+    sample :drum_heavy_kick,amp:5
+    sleep 0.5
+    sample :drum_snare_hard,amp:10
+    sleep 0.5
+  end
+end
+
+live_loop :hihat do
+  sample :drum_cymbal_closed,amp:3
+  sleep 0.25
+  sample :drum_cymbal_pedal,amp:2
+  sleep 1
+end
+
+
+live_loop :bass do
+  with_fx :pan, pan:0.5,amp:1 do
+    
+    use_synth :fm
+    play :c2, attack: 0, release: 0.25,amp:25
+    sleep 0.25
+    play :c2, attack: 0, release: 1,amp:25
+    play :c3, attack: 0, release: 1,amp:10
+    sleep 2
+    play :c2+5,amp:25,release:0.1
+    sleep 0.75
+    play :c2+3,amp:20
+    sleep 1
+  end
+end
+
+live_loop :chords do
+  with_fx :reverb, room:1,mix:0.7 do
+    use_synth :blade
+    play [:c3,:c3+3,:c3+7,:c3+10],attack: 0.5, release: 3.5, amp: 20, cutoff:60
+    sleep 4
+    
+  end
+end
+
+live_loop :melody1 do
+  use_synth :fm
+  with_fx :pan, pan:-0.5 do
+    with_fx :reverb, room:1,mix:0.6 do
+      2.times do
+        play 70, release: 0.1,amp:5
+        sleep 0.125
+        play 48, release: 0.1,amp:5
+        sleep 0.125
+        play 63, release: 0.1,amp:5
+        sleep 0.125
+        play 48, release: 0.1,amp:5
+        sleep 0.125
+        play 48, release: 0.1,amp:5
+        sleep 0.125
+        play 51, release: 0.1,amp:5
+        sleep 0.125
+        play 58, release: 0.1,amp:5
+        sleep 0.125
+        play 70, release: 0.1,amp:5
+        sleep 0.125
+      end
+    end
+  end
+end
+
+live_loop :whitenoise do
+  use_synth :pnoise
+  play :c1,sustain:0.25,amp:0.1
+  sleep 0.25
+end
